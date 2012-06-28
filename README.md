@@ -1,29 +1,39 @@
 # Backup2qiniu
 
-TODO: Write a gem description
+备份你的数据、文件到 qiniutek.com
 
-## Installation
+## 使用方法
 
-Add this line to your application's Gemfile:
+* 运行 gem install backup2qiniu
+* 运行 backup generate:config
+* 运行 backup generate:model --trigger=mysql_backup_qiniu
+* 修改 ~/Backup/models/mysql_backup_qiniu.rb, 改为如下的形式
 
-    gem 'backup2qiniu'
+```
+require 'rubygems'
+gem 'backup2qiniu'
+require 'backup2qiniu'
 
-And then execute:
+Backup::Model.new(:mysql_backup_qiniu, 'example backup to qiniu') do
+  split_into_chunks_of 250
 
-    $ bundle
+  database MySQL do |db|
+    db.name               = "for_backup"
+    db.username           = "my_username"
+    db.password           = "my_password"
+    db.host               = "localhost"
+    db.port               = 3306
+    db.socket             = "/tmp/mysql.sock"
+  end
 
-Or install it yourself as:
+  store_with Qiniu do |eb|
+    eb.username = 'username'
+    eb.password = 's3cret'
+    eb.bucket = 'backup'
+  end
+end
+```
 
-    $ gem install backup2qiniu
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+* 运行 sudo backup perform -t mysql_backup_everbox
+* backup 支持备份目录，数据库等多种源，并且支持非对称密钥加密来保护数据安全，
+   具体可以参考 backup 的文档: https://github.com/meskyanichi/backup
