@@ -1,5 +1,7 @@
-require "backup2qiniu/version"
+require 'backup/config/qiniu'
 
-module Backup2qiniu
-  # Your code goes here...
+module Backup
+  module Storage
+    autoload :Qiniu, 'backup/storage/qiniu'
+  end
 end
