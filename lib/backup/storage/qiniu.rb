@@ -1,3 +1,4 @@
+require 'backup/logger'
 require 'qiniu/rs'
 
 module Backup
@@ -36,10 +37,9 @@ module Backup
                  :key                => key,
                  :bucket             => bucket,
                  :enable_crc32_check => true
-          puts ::Qiniu::RS.get(bucket, key)
+          Logger.message "file uploaded to bucket:#{bucket}, key:#{key}"
         end
       end
-
     end
   end
 end
