@@ -7,6 +7,7 @@
 * 运行 gem install backup2qiniu
 * 运行 backup generate:config
 * 运行 backup generate:model --trigger=mysql_backup_qiniu
+* 访问 https://dev.qiniutek.com/account/keys, 找到你的 "Access Key" 和 "Access Secret"
 * 修改 ~/Backup/models/mysql_backup_qiniu.rb, 改为如下的形式
 
 ```
@@ -27,8 +28,8 @@ Backup::Model.new(:mysql_backup_qiniu, 'example backup to qiniu') do
   end
 
   store_with Qiniu do |eb|
-    eb.username = 'username'
-    eb.password = 's3cret'
+    eb.access_key = 'replace with access key'
+    eb.access_secret = 'replace with access secret'
     eb.bucket = 'backup'
   end
 end

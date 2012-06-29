@@ -5,7 +5,7 @@ module Backup
   module Storage
     class Qiniu < Base
 
-      attr_accessor :username, :password
+      attr_accessor :access_key, :access_secret
       attr_accessor :bucket
 
       def initialize(model, storage_id = nil, &block)
@@ -21,16 +21,15 @@ module Backup
       end
 
       def transfer!
-        ::Qiniu::RS.establish_connection! :access_key => "3fPHl_SLkPXdioqI_A8_NGngPWVJhlDk2ktRjogH",
-                                          :secret_key => "bXTPMDJrVYRJUiSDRFtFYwycVD_mjXxYWrCYlDHy"
-
-        raise "login failed" unless ::Qiniu::RS.login!(username, password)
+        ::Qiniu::RS.establish_connection! :access_key => access_key,
+                                          :secret_key => access_secret
 
         remote_path = remote_path_for(@package)
         files_to_transfer_for(@package) do |local_file, remote_file|
           Logger.message "#{storage_name} started transferring " +
               "'#{ local_file }'."
           remote_upload_url = ::Qiniu::RS.put_auth
+          raise "auth failed" if ! remote_upload_url
           key = File.join(remote_path, remote_file)
           ::Qiniu::RS.upload :url                => remote_upload_url,
                  :file               => File.join(local_path, local_file),
