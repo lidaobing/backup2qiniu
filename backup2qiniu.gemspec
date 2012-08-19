@@ -15,5 +15,5 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Backup2qiniu::VERSION
   gem.add_dependency 'backup', '~> 3.0'
-  gem.add_dependency 'qiniu-rs', '~> 2.0'
+  gem.add_dependency 'qiniu-rs', ['>= 2.0', '< 4']
 end
