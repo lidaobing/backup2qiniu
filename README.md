@@ -35,6 +35,6 @@ Backup::Model.new(:mysql_backup_qiniu, 'example backup to qiniu') do
 end
 ```
 
-* 运行 sudo backup perform -t mysql_backup_qiniu
+* 运行 backup perform -t mysql_backup_qiniu
 * backup 支持备份目录，数据库等多种源，并且支持非对称密钥加密来保护数据安全，
    具体可以参考 backup 的文档: https://github.com/meskyanichi/backup
