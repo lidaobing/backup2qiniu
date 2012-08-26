@@ -39,14 +39,14 @@ module Backup
         files_to_transfer_for(@package) do |local_file, remote_file|
           Logger.message "#{storage_name} started transferring " +
               "'#{ local_file }'."
-          remote_upload_url = ::Qiniu::RS.put_auth
-          raise "auth failed" if ! remote_upload_url
+          upload_token = ::Qiniu::RS.generate_upload_token :scope => bucket
           key = File.join(remote_path, remote_file)
-          ::Qiniu::RS.upload :url                => remote_upload_url,
+          res = ::Qiniu::RS.upload_file :uptoken            => upload_token,
                  :file               => File.join(local_path, local_file),
                  :key                => key,
                  :bucket             => bucket,
                  :enable_crc32_check => true
+          raise "upload '#{local_file}' failed" if res == false
           Logger.message "file uploaded to bucket:#{bucket}, key:#{key}"
         end
       end

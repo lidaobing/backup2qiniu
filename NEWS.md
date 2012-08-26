@@ -3,6 +3,7 @@
 ## 0.2.0 (2012-08-26)
 
 * support cycling.
+* use new upload API (require qiniu-rs 3.x)
 
 ## 0.1.1 (2012-08-19)
 
