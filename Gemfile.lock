@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    backup2qiniu (0.1.1)
+    backup2qiniu (0.2.0)
       backup (~> 3.0)
       qiniu-rs (~> 3.0)
 
