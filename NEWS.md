@@ -1,5 +1,9 @@
 # NEWS
 
+## 0.2.0 (2012-08-26)
+
+* support cycling.
+
 ## 0.1.1 (2012-08-19)
 
 * support qiniu-rs 3.x.

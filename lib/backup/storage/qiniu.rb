@@ -20,10 +20,21 @@ module Backup
         ''
       end
 
-      def transfer!
-        ::Qiniu::RS.establish_connection! :access_key => access_key,
-                                          :secret_key => access_secret
+      def remove!(pkg)
+        remote_path = remote_path_for(pkg)
+        establish_connection!
+        transferred_files_for(pkg) do |local_file, remote_file|
+          Logger.message "#{storage_name} started removing " +
+              "'#{ local_file }' from bucket '#{ bucket }'."
+          key = File.join(remote_path, remote_file)
+          unless ::Qiniu::RS.delete(bucket, key)
+            raise "delete '#{key}' failed"
+          end
+        end
+      end
 
+      def transfer!
+        establish_connection!
         remote_path = remote_path_for(@package)
         files_to_transfer_for(@package) do |local_file, remote_file|
           Logger.message "#{storage_name} started transferring " +
@@ -38,6 +49,12 @@ module Backup
                  :enable_crc32_check => true
           Logger.message "file uploaded to bucket:#{bucket}, key:#{key}"
         end
+      end
+
+      private
+      def establish_connection!
+        ::Qiniu::RS.establish_connection! :access_key => access_key,
+                                          :secret_key => access_secret
       end
     end
   end

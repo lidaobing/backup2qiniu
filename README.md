@@ -28,6 +28,7 @@ Backup::Model.new(:mysql_backup_qiniu, 'example backup to qiniu') do
   end
 
   store_with Qiniu do |eb|
+    eb.keep = 7
     eb.access_key = 'replace with access key'
     eb.access_secret = 'replace with access secret'
     eb.bucket = 'backup'
