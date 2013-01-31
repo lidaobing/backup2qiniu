@@ -8,21 +8,21 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    backup (3.0.25)
+    backup (3.0.27)
       open4 (~> 1.3.0)
-      thor (~> 0.15.4)
-    json (1.7.5)
+      thor (>= 0.15.4, < 2)
+    json (1.7.6)
     mime-types (1.19)
     open4 (1.3.0)
-    qiniu-rs (3.0.4)
-      json (~> 1.7.5)
+    qiniu-rs (3.4.1)
+      json (~> 1.7)
       mime-types (~> 1.19)
-      rest-client (~> 1.6.7)
-      ruby-hmac (~> 0.4.0)
+      rest-client (~> 1.6)
+      ruby-hmac (~> 0.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ruby-hmac (0.4.0)
-    thor (0.15.4)
+    thor (0.17.0)
 
 PLATFORMS
   ruby
