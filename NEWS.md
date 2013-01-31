@@ -1,5 +1,9 @@
 # NEWS
 
+## 0.2.1 (2012-01-31)
+
+* [#1] fix empty error when upload failed.
+
 ## 0.2.0 (2012-08-26)
 
 * support cycling.
