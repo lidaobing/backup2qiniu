@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    backup2qiniu (0.2.1)
-      backup (~> 3.0)
+    backup2qiniu (0.3.0)
+      backup (~> 3.1.0)
       qiniu-rs (~> 3.1)
 
 GEM
