@@ -1,5 +1,9 @@
 # NEWS
 
+## 0.3.0 (2013-03-26)
+
+* [#3] works for backup 3.1.X
+
 ## 0.2.1 (2012-01-31)
 
 * [#1] fix empty error when upload failed.

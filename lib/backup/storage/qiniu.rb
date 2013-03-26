@@ -24,7 +24,7 @@ module Backup
         remote_path = remote_path_for(pkg)
         establish_connection!
         transferred_files_for(pkg) do |local_file, remote_file|
-          Logger.message "#{storage_name} started removing " +
+          Logger.info "#{storage_name} started removing " +
               "'#{ local_file }' from bucket '#{ bucket }'."
           key = File.join(remote_path, remote_file)
           unless ::Qiniu::RS.delete(bucket, key)
@@ -37,7 +37,7 @@ module Backup
         establish_connection!
         remote_path = remote_path_for(@package)
         files_to_transfer_for(@package) do |local_file, remote_file|
-          Logger.message "#{storage_name} started transferring " +
+          Logger.info "#{storage_name} started transferring " +
               "'#{ local_file }'."
           upload_token = ::Qiniu::RS.generate_upload_token :scope => bucket
           key = File.join(remote_path, remote_file)
@@ -47,7 +47,7 @@ module Backup
                  :bucket             => bucket,
                  :enable_crc32_check => true
           raise "upload '#{local_file}' failed" if res == false
-          Logger.message "file uploaded to bucket:#{bucket}, key:#{key}"
+          Logger.info "file uploaded to bucket:#{bucket}, key:#{key}"
         end
       end
 
