@@ -1,3 +1,3 @@
 module Backup2qiniu
-  VERSION = "0.3.0"
+  VERSION = "3.2.0"
 end
