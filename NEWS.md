@@ -1,5 +1,9 @@
 # NEWS
 
+## 3.3.0 (2013-04-19)
+
+* works for backup 3.3.X
+
 ## 3.2.0 (2013-04-07)
 
 * works for backup 3.2.X
