@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'backup2qiniu/cli'
+
+Backup2qiniu::CLI.start
