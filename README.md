@@ -7,7 +7,9 @@
 * 运行 gem install backup2qiniu
 * 运行 backup generate:config
 * 运行 backup generate:model --trigger=mysql_backup_qiniu
-* 访问 https://dev.qiniutek.com/account/keys, 找到你的 "Access Key" 和 "Access Secret"
+* 获取上传秘钥
+  * 运行 backup2qiniu gen_token
+  * 如果不担心黑客入侵后通过你的备份配置删除你的备份，那么可以直接访问 https://dev.qiniutek.com/account/keys, 找到你的 "Access Key" 和 "Access Secret"
 * 修改 ~/Backup/models/mysql_backup_qiniu.rb, 改为如下的形式
 
 ```ruby

@@ -24,14 +24,19 @@ module Backup2qiniu
 
       print_params access_key: token, secret_key: secret, bucket: bucket, valid_days: days
 
-      print_token Qiniu::RS.generate_upload_token :expires_in => 3600*24*days, :scope => bucket
+      print_token Qiniu::RS.generate_upload_token(:expires_in => 3600*24*days, :scope => bucket), bucket
     end
 
     private
-    def print_token(token)
-      puts
-      puts 'Upload Token'
-      puts token
+    def print_token(token, bucket)
+      puts %Q{
+  # Copy following lines to your config file
+  store_with Qiniu do |q|
+    q.upload_token = #{token.inspect}
+    q.bucket = #{bucket}.inspect
+    # q.path = 'BACKUP_DIR1'
+  end
+      }
     end
 
     def get_bucket_name(buckets)
