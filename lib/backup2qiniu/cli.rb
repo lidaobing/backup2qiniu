@@ -33,7 +33,7 @@ module Backup2qiniu
   # Copy following lines to your config file
   store_with Qiniu do |q|
     q.upload_token = #{token.inspect}
-    q.bucket = #{bucket}.inspect
+    q.bucket = #{bucket.inspect}
     # q.path = 'BACKUP_DIR1'
   end
       }
