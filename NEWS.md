@@ -1,5 +1,9 @@
 # NEWS
 
+## 3.3.1 (2013-04-28)
+
+* support backup with upload_token
+
 ## 3.3.0 (2013-04-19)
 
 * works for backup 3.3.X
