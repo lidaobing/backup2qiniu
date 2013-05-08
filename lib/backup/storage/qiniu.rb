@@ -16,6 +16,7 @@ module Backup
         super(model, storage_id)
 
         @bucket ||= 'backups'
+        @path ||= ''
 
         instance_eval(&block) if block_given?
       end
@@ -23,9 +24,9 @@ module Backup
       def remove!(pkg)
         remote_path = remote_path_for(pkg)
         establish_connection!
-        transferred_files_for(pkg) do |local_file, remote_file|
+        package.filenames.each do |remote_file|
           Logger.info "#{storage_name} started removing " +
-              "'#{ local_file }' from bucket '#{ bucket }'."
+              "'#{ remote_file }' from bucket '#{ bucket }'."
           key = File.join(remote_path, remote_file)
           unless ::Qiniu::RS.delete(bucket, key)
             raise "delete '#{key}' failed"
@@ -45,11 +46,12 @@ module Backup
 
       def transfer_by_upload_token!
         raise "upload_token is not set" if upload_token.nil?
-        files_to_transfer_for(@package) do |local_file, remote_file|
+        package.filenames.each do |local_file|
+          remote_file = local_file
           Logger.info "[transfer_by_upload_token] #{storage_name} started transferring " +
               "'#{ local_file }'."
           key = File.join(remote_path, remote_file)
-          upload_file(File.join(local_path, local_file), key)
+          upload_file(File.join(Config.tmp_path, local_file), key)
           Logger.info "file uploaded to bucket:#{bucket}, key:#{key}"
         end
       end
@@ -61,19 +63,16 @@ module Backup
           :file => File.open(local_file)
       end
 
-      def remote_path
-        remote_path_for(@package)
-      end
-
       def transfer_by_secret!
         establish_connection!
-        files_to_transfer_for(@package) do |local_file, remote_file|
+        package.filenames.each do |local_file|
+          remote_file = local_file
           Logger.info "[transfer_by_secret] #{storage_name} started transferring " +
               "'#{ local_file }'."
           upload_token = ::Qiniu::RS.generate_upload_token :scope => bucket
           key = File.join(remote_path, remote_file)
           res = ::Qiniu::RS.upload_file :uptoken            => upload_token,
-                 :file               => File.join(local_path, local_file),
+                 :file               => File.join(Config.tmp_path, local_file),
                  :key                => key,
                  :bucket             => bucket,
                  :enable_crc32_check => true
