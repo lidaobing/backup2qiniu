@@ -1,5 +1,6 @@
 require 'backup/logger'
-require 'qiniu/rs'
+require 'backup'
+require 'qiniu'
 require 'rest_client'
 require 'base64'
 
