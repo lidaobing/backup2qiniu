@@ -4,8 +4,8 @@ require File.expand_path('../lib/backup2qiniu/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["LI Daobing"]
   gem.email         = ["lidaobing@gmail.com"]
-  gem.description   = %q{backup to qiniutek.com}
-  gem.summary       = %q{backup to qiniutek.com}
+  gem.description   = %q{backup to qiniu.com}
+  gem.summary       = %q{backup to qiniu.com}
   gem.homepage      = "https://github.com/lidaobing/backup2qiniu"
 
   gem.files         = `git ls-files`.split($\)
@@ -14,6 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "backup2qiniu"
   gem.require_paths = ["lib"]
   gem.version       = Backup2qiniu::VERSION
-  gem.add_dependency 'backup', '>= 3.4.0'
+  gem.add_dependency 'backup', '~> 3.4'
   gem.add_dependency 'qiniu-rs', '~> 3.1'
 end
