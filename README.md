@@ -1,6 +1,6 @@
 # Backup2qiniu
 
-备份你的数据、文件到 [qiniutek.com](http://www.qiniutek.com/)
+备份你的数据、文件到 [qiniu.com](http://www.qiniu.com/)
 
 ## 使用方法
 

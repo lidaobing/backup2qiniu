@@ -5,7 +5,7 @@ module Backup2qiniu
   class CLI < Thor
     desc 'gen_token', 'Generate a Upload Token for backup'
     def gen_token
-      puts 'input your keys (you can find them on https://dev.qiniutek.com/account/keys)'
+      puts 'input your keys (you can find them on https://portal.qiniu.com/setting/key)'
       token = get_param("Access Key")
       secret = get_param("Secret Key")
       Qiniu::RS.establish_connection! :access_key => token, :secret_key => secret
