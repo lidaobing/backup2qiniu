@@ -1,6 +1,8 @@
 module Backup
   module Config
-    module Qiniu
+    class DSL
+      module Qiniu
+      end
     end
   end
 end

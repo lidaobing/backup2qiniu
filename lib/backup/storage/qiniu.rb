@@ -6,19 +6,16 @@ require 'base64'
 module Backup
   module Storage
     class Qiniu < Base
-
       attr_accessor :access_key, :access_secret
       attr_accessor :upload_token
       attr_accessor :bucket
       attr_accessor :path
 
-      def initialize(model, storage_id = nil, &block)
+      def initialize(model, storage_id = nil)
         super(model, storage_id)
 
         @bucket ||= 'backups'
         @path ||= ''
-
-        instance_eval(&block) if block_given?
       end
 
       def remove!(pkg)

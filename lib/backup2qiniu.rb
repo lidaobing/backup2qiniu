@@ -1,4 +1,4 @@
-require 'backup/config/qiniu'
+require 'backup/config/dsl/qiniu'
 
 module Backup
   module Storage
