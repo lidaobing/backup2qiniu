@@ -1,5 +1,9 @@
 # NEWS
 
+## 4.2.0 (2015-12-16)
+
+* [#8] now support backup 4
+
 ## 3.11.0 (2014-11-13)
 
 * backup2qiniu does not support backup 4
