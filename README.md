@@ -1,5 +1,7 @@
 # Backup2qiniu
 
+[![Join the chat at https://gitter.im/lidaobing/backup2qiniu](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lidaobing/backup2qiniu?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 备份你的数据、文件到 [qiniu.com](http://www.qiniu.com/)
 
 ## 使用方法
