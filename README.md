@@ -7,9 +7,7 @@
 * 运行 gem install backup2qiniu
 * 运行 backup generate:config
 * 运行 backup generate:model --trigger=mysql_backup_qiniu
-* 获取上传秘钥
-  * 运行 backup2qiniu gen_token
-  * 如果不担心黑客入侵后通过你的备份配置删除你的备份，那么可以直接访问 https://portal.qiniu.com/setting/key, 找到你的 "ACCESS KEY" 和 "SECRET KEY"
+* 运行 backup2qiniu gen_token 来生成配置文件
 * 修改 ~/Backup/models/mysql_backup_qiniu.rb, 改为如下的形式
 
 ```ruby
@@ -30,6 +28,7 @@ Backup::Model.new(:mysql_backup_qiniu, 'example backup to qiniu') do
     db.socket             = "/tmp/mysql.sock"
   end
 
+  # 把这段替换为你刚刚生成的配置文件
   store_with Qiniu do |q|
     ## when using uploadToken, you can not delete the old backup (for security concern)
     # q.keep = 7
@@ -38,26 +37,28 @@ Backup::Model.new(:mysql_backup_qiniu, 'example backup to qiniu') do
     q.path = 'BACKUP_DIR1'
   end
 
-  store_with Qiniu do |q|
-    q.keep = 7
-    q.access_key = 'REPLACE WITH ACCESS KEY'
-    q.access_secret = 'REPLACE WITH ACCESS SECRET'
-    q.bucket = 'BUCKET_NAME'
-    q.path = 'BACKUP_DIR2'
-  end
+  # 如果需要自动删除过期的备份，那么需要直接使用 https://portal.qiniu.com/setting/key 拿到的 AK 和 SK
+  # store_with Qiniu do |q|
+  #   q.keep = 7
+  #   q.access_key = 'REPLACE WITH ACCESS KEY'       # 从网页拿到的 AK
+  #   q.access_secret = 'REPLACE WITH ACCESS SECRET' # 从网页拿到的 SK
+  #   q.bucket = 'BUCKET_NAME'
+  #   q.path = 'BACKUP_DIR2'
+  # end
 
-  # more info: https://github.com/meskyanichi/backup/wiki/Encryptors
-  encrypt_with GPG do |encryption|
-    encryption.keys = {}
-    encryption.keys['YOUR EMAIL'] = <<-KEY
-      -----BEGIN PGP PUBLIC KEY BLOCK-----
-      Version: GnuPG v1.4.12 (Darwin)
-
-      YOUR KEY
-      -----END PGP PUBLIC KEY BLOCK-----
-    KEY
-    encryption.recipients = ['YOUR EMAIL']
-  end
+  # 为安全起见我们推荐你生成一对 GPG 秘钥，用公钥来加密你的数据库备份
+  # 更多信息: https://github.com/meskyanichi/backup/wiki/Encryptors
+  # encrypt_with GPG do |encryption|
+  #   encryption.keys = {}
+  #   encryption.keys['YOUR EMAIL'] = <<-KEY
+  #     -----BEGIN PGP PUBLIC KEY BLOCK-----
+  #     Version: GnuPG v1.4.12 (Darwin)
+  #
+  #     YOUR KEY
+  #     -----END PGP PUBLIC KEY BLOCK-----
+  #   KEY
+  #   encryption.recipients = ['YOUR EMAIL']
+  # end
 end
 ```
 

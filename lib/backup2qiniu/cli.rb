@@ -31,7 +31,7 @@ module Backup2qiniu
     def print_token(token, bucket)
       puts %Q{
   # Copy following lines to your config file
-  store_with "Qiniu" do |q|
+  store_with Qiniu do |q|
     q.upload_token = #{token.inspect}
     q.bucket = #{bucket.inspect}
     # q.path = 'BACKUP_DIR1'
