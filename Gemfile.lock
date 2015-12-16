@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    backup2qiniu (3.11.0)
+    backup2qiniu (4.2.0)
       backup (~> 4.2)
       qiniu-rs (~> 3.1)
 
@@ -248,4 +248,4 @@ DEPENDENCIES
   backup2qiniu!
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
